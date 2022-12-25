@@ -1,0 +1,18 @@
+name: Sync Fork
+
+on:
+  schedule:
+    - cron: '0 0 * * *' # at midnight UTC
+  workflow_dispatch: # on button click
+
+jobs:
+  sync:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: EASS-HIT-PART-A-2022-CLASS-II/fork-sync-v1.6.3@v2
+        with:
+          owner: chapost1
+          base: main
+          head: main
