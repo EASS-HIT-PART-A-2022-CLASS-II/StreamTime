@@ -16,11 +16,11 @@
         <div class="d-flex flex-row">
             <button mat-button [disabled]="video.sync" (click)="onEdit(video)" matTooltip="Edit"
                 [matTooltipPosition]="'below'">
-                <fa-icon [hidden]="video.sync" [icon]="icons.edit" class="text-secondary"></fa-icon>
+                <fa-icon [hidden]="video.sync" [icon]="icons.edit"></fa-icon>
             </button>
 
             <button mat-button [disabled]="!video.isListed() || video.sync" (click)="onWatch(video)"
-                matTooltip="{{video.isListed()?'Watch':null}}" [matTooltipPosition]="'below'">
+                matTooltip="{{video.isListed()?'Watch' : null}}" [matTooltipPosition]="'below'">
                 <fa-icon *ngIf="!video.sync" [icon]="icons.watch"></fa-icon>
 
                 <mat-spinner *ngIf="video.sync" class="text-center mx-auto" [diameter]="24"></mat-spinner>
@@ -28,8 +28,12 @@
 
             <button mat-button [disabled]="video.sync" (click)="onDelete(video)" matTooltip="Delete forever"
                 [matTooltipPosition]="'below'">
-                <fa-icon [hidden]="video.sync" [icon]="icons.delete" class="text-danger"></fa-icon>
+                <fa-icon [hidden]="video.sync" [icon]="icons.delete"></fa-icon>
             </button>
         </div>
+
+        <p class="text-muted opacity-75" *ngIf="!video.isListed()">
+            <span class="text-danger">*</span> Edit before watching.
+        </p>
     </div>
 </div>

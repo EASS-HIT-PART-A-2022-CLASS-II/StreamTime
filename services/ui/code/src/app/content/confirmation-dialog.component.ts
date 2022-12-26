@@ -14,10 +14,10 @@ export interface ConfirmationDialogData {
                     <h2>{{data.title}}</h2>
 
                     <div class="d-flex justify-content-center">
-                        <span class="me-2">
+                        <span class="me-5 ms-2">
                             <button mat-stroked-button (click)="exit(false)">Cancel</button>
                         </span>
-                        <span class="ms-2">
+                        <span class="ms-5 me-2">
                             <button mat-stroked-button color="primary" (click)="exit(true)">Confirm</button>
                         </span>
                     </div>
