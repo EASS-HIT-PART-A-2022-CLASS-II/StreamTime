@@ -1,7 +1,12 @@
+import logging
 from typing import Callable, Dict
 from fastapi import Request, status, Response
 from fastapi.responses import JSONResponse
 import common.app_errors as app_errors
+
+logger = logging.getLogger(__name__)
+# TODO: Add a handler to log to some external service
+logger.addHandler(logging.StreamHandler())
 
 
 def http_error(details: Dict, status_code: status) -> Response:
@@ -32,4 +37,12 @@ async def app_errors_handler(request: Request, call_next: Callable):
         # Any other exception is considered an internal server error
         # We handle it here explicitly because CorsMiddleware won't catch it and fail to attach the CORS headers
         # Which will cause the browser to throw a CORS error instead of a 500
-        return http_error(details={"body": "Internal Server Error"}, status_code=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        # log the exception
+        logger.exception(e, exc_info=True)
+        # return explanatory response to the client
+        return http_error(
+            details={
+                'message': 'Internal Server Error'
+            },
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR
+        )
